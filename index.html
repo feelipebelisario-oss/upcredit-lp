@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UpCredit | Capital de Giro para PME</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2B6FD4;
+            --primary-dark: #1A55B0;
+            --secondary: #FFFFFF;
+            --accent: #2B6FD4;
+            --background: #F5F7FA;
+            --text-dark: #1A1A2E;
+            --text-muted: #4A4A68;
+            --error: #E63946;
+            --shadow: 0 4px 12px rgba(43, 111, 212, 0.15);
+            --radius-card: 12px;
+            --radius-btn: 8px;
+            --radius-input: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        h1 { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+        h2 { font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 20px; }
+        p { font-size: 16px; color: var(--text-muted); }
+
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero {
+            text-align: center;
+            padding-top: 10px;
+        }
+        .subheadline {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 56px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: var(--radius-btn);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 14px rgba(43, 111, 212, 0.4);
+        }
+        .btn:active { transform: scale(0.98); }
+        .micro-copy {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        .pain-points {
+            background-color: white;
+            border-radius: var(--radius-card);
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .check-icon {
+            color: var(--accent);
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        #form-wrapper {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        #form-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .input-group input {
+            width: 100%;
+            height: 48px;
+            padding: 0 12px;
+            border: 1px solid #DDD;
+            border-radius: var(--radius-input);
+            font-size: 16px;
+            font-family: inherit;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .error-msg {
+            color: var(--error);
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+        .checkbox-group label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .partners {
+            text-align: center;
+            opacity: 0.7;
+        }
+        .partner-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            font-weight: 700;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-card);
+            margin-bottom: 16px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .benefit-icon { font-size: 32px; }
+        .benefit-content h3 { font-size: 16px; font-weight: 700; }
+        .benefit-content p { font-size: 14px; }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .final-cta {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            border-radius: var(--radius-card);
+            padding: 40px 20px;
+        }
+        .final-cta h2 { color: white; margin-bottom: 10px; }
+        .final-cta p { color: #A0A0B0; margin-bottom: 30px; }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        #success-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+            margin-top: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .container { max-width: 600px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="./logo-upcredit.png" alt="UpCredit" style="height: 44px; width: auto; display: block;">
+    </header>
+
+    <main class="container">
+        <section class="hero" id="hero-section">
+            <h1>Sua empresa pode ter até R$ 500 mil de capital de giro hoje</h1>
+            <p class="subheadline">100% online · Sem burocracia · Um especialista entra em contacto no seu WhatsApp</p>
+            
+            <button class="btn" id="main-cta">Falar com um especialista →</button>
+            <span class="micro-copy">Grátis · Sem compromisso · Leva 30 segundos</span>
+        </section>
+
+        <section id="problem-section">
+            <div class="pain-points">
+                <h2>Sua empresa passa por alguma destas situações?</h2>
+                <div class="check-item">
+                    <span class="check-icon">✓</span>
+                    <p>Fluxo de caixa apertado no mês</p>
+                </div>
+                <div class="check-item">
+                    <span class="check-icon">✓</span>
+                    <p>Oportunidade de compra de stock sem capital disponível</p>
+                </div>
+                <div class="check-item">
+                    <span class="check-icon">✓</span>
+                    <p>Aguardando recebíveis para honrar compromissos</p>
+                </div>
+                <div class="check-item">
+                    <span class="check-icon">✓</span>
+                    <p>Precisando de capital para crescer agora</p>
+                </div>
+                <p style="margin-top:20px; font-weight: 600; color: var(--text-dark);">
+                    Se marcou pelo menos uma, temos uma solução para si.
+                </p>
+            </div>
+        </section>
+
+        <div id="form-wrapper">
+            <section id="qualify-form">
+                <div class="form-card">
+                    <h2 style="margin-bottom:10px;">Análise de Crédito</h2>
+                    <p style="margin-bottom:24px; font-size:14px;">Preencha os dados abaixo para começar.</p>
+                    
+                    <form id="leadForm">
+                        <div class="input-group">
+                            <label for="cnpj">CNPJ da empresa</label>
+                            <input type="tel" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required>
+                            <span class="error-msg" id="error-cnpj">CNPJ inválido</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="email">E-mail corporativo</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                            <span class="error-msg" id="error-email">E-mail inválido</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="phone">WhatsApp / Telemóvel</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" maxlength="15" required>
+                            <span class="error-msg" id="error-phone">Número inválido</span>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="lgpd" name="lgpd" required>
+                            <label for="lgpd">Autorizo o uso dos meus dados conforme a Política de Privacidade da UpCredit (LGPD)</label>
+                        </div>
+
+                        <button type="submit" class="btn">Quero falar com um especialista →</button>
+                        <p style="font-size: 11px; text-align: center; margin-top: 15px; color: #999;">
+                            🔒 Seus dados estão protegidos · Não partilhamos com terceiros
+                        </p>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <section class="partners">
+            <p style="font-size: 14px; font-weight: 600;">Crédito disponibilizado em parceria com</p>
+            <div class="partner-grid">
+                <span>CLOVER</span>
+                <span>CREDSELLER</span>
+            </div>
+            <p style="font-size: 12px; margin-top: 10px;">Instituições regulamentadas e certificadas</p>
+        </section>
+
+        <section id="benefits">
+            <div class="benefit-card">
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-content">
+                    <h3>Aprovado em minutos</h3>
+                    <p>Saiba em minutos se foi aprovado, sem sair do telemóvel.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-content">
+                    <h3>Até R$ 500 mil disponíveis</h3>
+                    <p>Use as suas vendas futuras como garantia — sem tirar dinheiro do caixa agora.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📱</div>
+                <div class="benefit-content">
+                    <h3>Zero burocracia</h3>
+                    <p>Do CNPJ ao crédito, tudo pelo telemóvel. Sem papelada, sem agência.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <h2 style="text-align: center;">Como funciona?</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <p>Informe o CNPJ, e-mail e telemóvel (30 segundos)</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <p>Um especialista entra em contacto no seu WhatsApp para fazer a sua simulação</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <p>Crédito na conta da sua empresa em dias úteis</p>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <h2>Fale agora com um especialista e descubra quanto a sua empresa pode receber</h2>
+            <p>Clique abaixo e inicie a sua simulação agora.</p>
+            <button class="btn" onclick="revealForm()">Quero falar com um especialista →</button>
+        </section>
+
+        <section id="success-screen">
+            <span class="success-icon">✅</span>
+            <h2>Pronto! Em breve um especialista irá contactar-te</h2>
+            <p style="margin-bottom: 16px;">A nossa equipa entrará em contacto pelo WhatsApp para fazer a sua simulação de crédito personalizada, gratuitamente.</p>
+            <p style="font-weight: 700; color: var(--text-dark);">Fica atento ao WhatsApp — o contacto virá do número oficial da UpCredit.</p>
+            
+            <button id="whatsapp-redirect-btn" class="btn btn-whatsapp">Abrir WhatsApp →</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Política de Privacidade</a>
+        </div>
+        <p>UpCredit Soluções Financeiras Ltda — CNPJ CC.CCC.CCC/0001-CC</p>
+        <p>Crédito sujeito a análise cadastral e de crédito</p>
+        <p style="margin-top: 10px;">© 2026 UpCredit</p>
+    </footer>
+
+    <script>
+        const mainCta = document.getElementById('main-cta');
+        const formWrapper = document.getElementById('form-wrapper');
+
+        function revealForm() {
+            formWrapper.style.display = 'block';
+            setTimeout(() => {
+                formWrapper.classList.add('visible');
+                formWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 10);
+        }
+
+        mainCta.addEventListener('click', revealForm);
+
+        const cnpjInput = document.getElementById('cnpj');
+        const phoneInput = document.getElementById('phone');
+
+        cnpjInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 14) value = value.slice(0, 14);
+            
+            value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+            value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+            value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            
+            e.target.value = value;
+        });
+
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            
+            e.target.value = value;
+        });
+
+        function validateCNPJ(cnpj) {
+            cnpj = cnpj.replace(/[^\d]+/g, '');
+            if (cnpj == '' || cnpj.length != 14 || /^(\d)\1+$/.test(cnpj)) return false;
+            
+            let tamanho = cnpj.length - 2;
+            let numeros = cnpj.substring(0, tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (resultado != digitos.charAt(0)) return false;
+            
+            tamanho = tamanho + 1;
+            numeros = cnpj.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (resultado != digitos.charAt(1)) return false;
+            
+            return true;
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        const leadForm = document.getElementById('leadForm');
+        
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let isValid = true;
+            const cnpjVal = cnpjInput.value;
+            const emailVal = document.getElementById('email').value;
+            const phoneVal = phoneInput.value;
+
+            document.querySelectorAll('.error-msg').forEach(m => m.style.display = 'none');
+
+            if (!validateCNPJ(cnpjVal)) {
+                document.getElementById('error-cnpj').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!validateEmail(emailVal)) {
+                document.getElementById('error-email').style.display = 'block';
+                isValid = false;
+            }
+
+            if (phoneVal.length < 14) {
+                document.getElementById('error-phone').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                const message = `Olá! Acabei de solicitar uma análise de crédito pela UpCredit.\n\n📋 Meus dados:\n• CNPJ: ${cnpjVal}\n• E-mail: ${emailVal}\n• Telemóvel: ${phoneVal}\n\nAguardo o contacto do especialista!`;
+                const waUrl = `https://wa.me/5511977538041?text=${encodeURIComponent(message)}`;
+
+                document.querySelectorAll('main > section:not(#success-screen)').forEach(s => s.style.display = 'none');
+                document.getElementById('form-wrapper').style.display = 'none';
+                document.querySelector('header').style.display = 'none';
+                
+                const successScreen = document.getElementById('success-screen');
+                successScreen.style.display = 'block';
+                
+                document.getElementById('whatsapp-redirect-btn').onclick = () => {
+                    window.location.href = waUrl;
+                };
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                setTimeout(() => {
+                    window.location.href = waUrl;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
